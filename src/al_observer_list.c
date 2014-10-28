@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "al_observer_list.h"
 
@@ -62,6 +63,9 @@ static void append_to_list( const al_Observer* observer )
     }
     
     observer_llist.node_count++;
+    
+    printf( "AL-OBS-LIST: New observer added. Count: %u\n",
+        observer_llist.node_count );
 }
 
 /*
@@ -83,6 +87,11 @@ static void remove_from_list( const al_Observer* observer )
 
     assert( NULL != node );
 
+    if ( node != observer_llist.head && node != observer_llist.tail )
+    {
+        prev->next = node->next;
+    }
+
     if ( node == observer_llist.head )
     {
         observer_llist.head = node->next;
@@ -93,37 +102,25 @@ static void remove_from_list( const al_Observer* observer )
         observer_llist.tail = prev;
     }
     
-    if ( node != observer_llist.head && node != observer_llist.tail )
-    {
-        prev->next = node->next;
-    }
     
     observer_llist.node_count--;
-}
-
-/*
- *
- */
-static void handle( const al_Data* data )
-{
-    const al_Observer* observer = NULL;
-    struct al_ObserverListNode* node = NULL;
-
-    /* Code */
     
-    node = observer_llist.head;
-    while ( NULL != node )
-    {
-        observer = node->observer;
-        observer->notification( observer->instance, data );
-        node = node->next;
-    }
+    printf( "AL-OBS-LIST: Observer removed. Count: %u\n",
+        observer_llist.node_count );
 }
 
 /*
  *
  */
-void init( void )
+static unsigned int nodes_in_list( void )
+{
+    return observer_llist.node_count;
+}
+
+/*
+ *
+ */
+void al_obs_list_init( void )
 {
     observer_llist.head = NULL;
     observer_llist.tail = NULL;
@@ -133,7 +130,7 @@ void init( void )
 /*
  *
  */
-void attach( const al_Observer* observer )
+void al_obs_list_attach( const al_Observer* observer )
 {
     assert( NULL != observer );
     
@@ -143,11 +140,42 @@ void attach( const al_Observer* observer )
 /*
  *
  */
-void detach( const al_Observer* observer )
+void al_obs_list_detach( const al_Observer* observer )
 {
     assert( NULL != observer );
     
     remove_from_list( observer );
+}
+
+/*
+ *
+ */
+unsigned int al_obs_list_count( void )
+{
+    return nodes_in_list();
+}
+
+/*
+ *
+ */
+void al_obs_list_broadcast( const al_Data* data )
+{
+    const al_Observer* observer = NULL;
+    struct al_ObserverListNode* node = NULL;
+
+    /* Code */
+    
+    printf( "AL-OBS-LIST: Broadcasting started\n" );
+    
+    node = observer_llist.head;
+    while ( NULL != node )
+    {
+        observer = node->observer;
+        observer->notification( observer->instance, data );
+        node = node->next;
+    }
+    
+    printf( "AL-OBS-LIST: Broadcasting ended\n" );
 }
 
 /* End of file */
