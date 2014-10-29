@@ -1,15 +1,18 @@
 /* ---------------------------------------------------------------------------
- * File: al_data_types.h
+ * File: al_types.h
  * ---------------------------------------------------------------------------
  */
 
-#ifndef AL_DATA_TYPES_H
-#define AL_DATA_TYPES_H
+#ifndef AL_TYPES_H
+#define AL_TYPES_H
 
+/*
+ *
+ */
 typedef struct
 {
-    int   type;
-    void* data;
-} al_data;
+    unsigned int    type;
+    void*           data;
+} al_Data;
 
-#endif /* AL_DATA_TYPES_H */
+#endif /* AL_TYPES_H */

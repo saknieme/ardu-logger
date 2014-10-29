@@ -3,7 +3,7 @@ CC=gcc
 CFLAGS=-c -Wall
 LDFLAGS=-Iinclude
 
-SOURCES=src/ardu-logger.c src/al_data_container.c src/al_temp.c
+SOURCES=src/ardu-logger.c src/al_observer_list.c src/al_temp.c
 OBJECTS=$(SOURCES:.cpp=.o)
 
 EXECUTABLE=ardu-logger

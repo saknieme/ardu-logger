@@ -3,13 +3,15 @@
  * ---------------------------------------------------------------------------
  */
 
-#include "al_data_types.h"
+#include "al_types.h"
 
 /*
  *
  */
-static void al_new_temp_value_available(
-    void* instance, const al_data* data )
+static void al_temp_data_available(
+    void* instance, const al_Data* data )
 {
     /* Do nothing */
-}  
+}
+
+/* End of file */
