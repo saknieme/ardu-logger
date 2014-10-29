@@ -30,11 +30,21 @@ static void clean_ardu_logger( void )
 
 int main( void )
 {
+  float test = 25.4;
   al_Data data;
-  data.type = 1;
+  data.type = 10;
+  data.data = ( void* ) &test;
   
   /* Initialize system. */
   init_ardu_logger();
+
+  al_obs_list_notify( &data );
+
+  test = 24.4;
+
+  al_obs_list_notify( &data );
+
+  test = 23.9;
 
   al_obs_list_notify( &data );
   
