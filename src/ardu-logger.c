@@ -8,7 +8,9 @@
 
 #include <stdio.h>
 
+#include "al_types.h"
 #include "al_temp.h"
+#include "al_observer.h"
 #include "al_observer_list.h"
 
 static void init_ardu_logger( void )
@@ -34,12 +36,10 @@ int main( void )
   /* Initialize system. */
   init_ardu_logger();
 
-  al_obs_list_broadcast( &data );
+  al_obs_list_notify( &data );
   
   /* Clean system. */
   clean_ardu_logger();
   
-  printf( "\nThis is ardu-logger.\n\n" );
-
   return 0;
 }

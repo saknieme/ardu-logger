@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #include "al_types.h"
+#include "al_common.h"
 #include "al_observer.h"
 #include "al_observer_list.h"
 
@@ -18,7 +19,7 @@ static al_Observer observer;
 static void al_temp_data_available(
     void* instance, const al_Data* data )
 {
-    printf( "AL-TEMP: Notification received\n" );
+    AL_DEBUG_PRINT( "AL-TEMP: Notification received." );
 }
 
 void al_temp_init( void )
