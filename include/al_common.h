@@ -6,6 +6,8 @@
 #ifndef AL_COMMON_H
 #define AL_COMMON_H
 
+#include <stdio.h>
+
 #define AL_DEBUG_PRINTS
 
 #ifdef AL_DEBUG_PRINTS
